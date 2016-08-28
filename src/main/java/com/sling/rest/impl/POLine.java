@@ -15,12 +15,10 @@ import java.util.List;
 
 import javax.ws.rs.core.Response;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sling.rest.annotations.Validate;
 import com.sling.rest.jaxrs.model.FundDistribution;
 import com.sling.rest.jaxrs.model.PoLine;
 import com.sling.rest.jaxrs.model.PoLines;
-import com.sling.rest.jaxrs.model.Price;
 import com.sling.rest.jaxrs.resource.POLinesResource;
 import com.sling.rest.persist.PostgresClient;
 import com.sling.rest.persist.Criteria.Criteria;
@@ -28,7 +26,6 @@ import com.sling.rest.persist.Criteria.Criterion;
 import com.sling.rest.persist.Criteria.Limit;
 import com.sling.rest.persist.Criteria.Offset;
 import com.sling.rest.persist.Criteria.Order.ORDER;
-import com.sling.rest.persist.Criteria.UpdateSection;
 import com.sling.rest.resource.utils.OutStream;
 import com.sling.rest.tools.Messages;
 

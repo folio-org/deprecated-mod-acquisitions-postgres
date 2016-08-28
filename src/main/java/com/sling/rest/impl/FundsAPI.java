@@ -1,28 +1,21 @@
 package com.sling.rest.impl;
 
-import java.util.List;
-
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Context;
 import io.vertx.core.Handler;
-import io.vertx.core.json.JsonObject;
-
+import java.util.List;
 import javax.ws.rs.core.Response;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sling.rest.annotations.Validate;
 import com.sling.rest.jaxrs.model.Fund;
 import com.sling.rest.jaxrs.model.Funds;
 import com.sling.rest.jaxrs.resource.FundsResource;
-import com.sling.rest.jaxrs.resource.POLinesResource.Order;
-import com.sling.rest.persist.MongoCRUD;
 import com.sling.rest.persist.PostgresClient;
 import com.sling.rest.persist.Criteria.Criterion;
 import com.sling.rest.persist.Criteria.Limit;
 import com.sling.rest.persist.Criteria.Offset;
 import com.sling.rest.persist.Criteria.Order.ORDER;
 import com.sling.rest.resource.utils.OutStream;
-import com.sling.rest.resource.utils.RestUtils;
 import com.sling.rest.tools.Messages;
 import com.sling.rest.utils.Consts;
 
