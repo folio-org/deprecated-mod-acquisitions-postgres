@@ -44,8 +44,8 @@ public class POLine implements POLinesResource {
   public final static String JSONB_FIELD       = "jsonb";
 
   private final Messages     messages          = Messages.getInstance();
-  private ObjectMapper       mapper            = new ObjectMapper();
 
+  @Validate
   @Override
   public void getPoLines(String authorization, String query, String orderBy, Order order, int offset, int limit, String lang,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
@@ -207,7 +207,8 @@ public class POLine implements POLinesResource {
     }
 
   }
-
+  
+  @Validate
   @Override
   public void getPoLinesByPoLineId(String poLineId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
@@ -256,6 +257,7 @@ public class POLine implements POLinesResource {
 
   }
 
+  @Validate
   @Override
   public void deletePoLinesByPoLineId(String poLineId, String authorization, String lang,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
@@ -296,7 +298,8 @@ public class POLine implements POLinesResource {
     }
 
   }
-
+  
+  @Validate
   @Override
   public void putPoLinesByPoLineId(String poLineId, String authorization, String lang, PoLine entity,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {

@@ -6,13 +6,21 @@ import io.vertx.core.AsyncResult;
 import io.vertx.core.Context;
 import io.vertx.core.Handler;
 import io.vertx.core.json.JsonObject;
+
 import javax.ws.rs.core.Response;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sling.rest.annotations.Validate;
 import com.sling.rest.jaxrs.model.Fund;
 import com.sling.rest.jaxrs.model.Funds;
 import com.sling.rest.jaxrs.resource.FundsResource;
+import com.sling.rest.jaxrs.resource.POLinesResource.Order;
 import com.sling.rest.persist.MongoCRUD;
+import com.sling.rest.persist.PostgresClient;
+import com.sling.rest.persist.Criteria.Criterion;
+import com.sling.rest.persist.Criteria.Limit;
+import com.sling.rest.persist.Criteria.Offset;
+import com.sling.rest.persist.Criteria.Order.ORDER;
 import com.sling.rest.resource.utils.OutStream;
 import com.sling.rest.resource.utils.RestUtils;
 import com.sling.rest.tools.Messages;
@@ -23,25 +31,26 @@ public class FundsAPI implements FundsResource {
   private final Messages            messages = Messages.getInstance();
   private static final ObjectMapper mapper   = new ObjectMapper();
 
+  @Override
   @Validate
   public void getFunds(String authorization, String query, String orderBy, Order order, int offset, int limit, String lang,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
-    JsonObject q = new JsonObject();
-    q.put("query", query);
+    Criterion criterion = Criterion.json2Criterion(query);
     System.out.println("sending... getFunds");
-    JsonObject jObj = RestUtils.createMongoObject(Consts.FUNDS_COLLECTION, Consts.METHOD_GET, authorization, q, orderBy, order, offset,
-        limit, null, null);
+    
     vertxContext.runOnContext(v -> {
       try {
-        MongoCRUD.getInstance(vertxContext.owner()).get(
-            jObj,
+        criterion.setLimit(new Limit(limit)).setOffset(new Offset(offset));
+        com.sling.rest.persist.Criteria.Order or = getOrder(order, orderBy);
+        if (or != null) {
+          criterion.setOrder(or);
+        }
+        PostgresClient.getInstance(vertxContext.owner()).get(Consts.FUNDS_COLLECTION, Fund.class , criterion, true,
             reply -> {
               try {
                 Funds funds = new Funds();
-                // this is wasteful!!!
-                List<Fund> fundObj = mapper.readValue(reply.result().toString(),
-                    mapper.getTypeFactory().constructCollectionType(List.class, Fund.class));
+                List<Fund> fundObj = (List<Fund>)reply.result()[0];
                 funds.setFunds(fundObj);
                 funds.setTotalRecords(fundObj.size());
                 asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsResponse.withJsonOK(funds)));
@@ -60,26 +69,23 @@ public class FundsAPI implements FundsResource {
     
   }
   
+  @Override
   @Validate
   public void postFunds(String authorization, String lang, Fund entity, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
     try {
       System.out.println("sending... postFunds");
-      JsonObject jObj = RestUtils.createMongoObject(Consts.FUNDS_COLLECTION, Consts.METHOD_POST, authorization, null, null, null, 0, 0,
-          entity, null);
+      PostgresClient postgresClient = PostgresClient.getInstance(vertxContext.owner());
 
       vertxContext.runOnContext(v -> {
 
         try {
-          MongoCRUD.getInstance(vertxContext.owner())
-              .save(
-                  jObj,
+          postgresClient.save(Consts.FUNDS_COLLECTION, entity,
                   reply -> {
                     try {
-                      Fund p = new Fund();
-                      p = entity;
-                      //p.setPatronId(reply.result());
+                      Fund p = entity;
+                      p.setId(reply.result());
                       OutStream stream = new OutStream();
                       stream.setData(p);
                       asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PostFundsResponse.withJsonCreated(reply.result(),
@@ -107,7 +113,7 @@ public class FundsAPI implements FundsResource {
   public void getFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
-    try {
+/*    try {
       JsonObject q = new JsonObject();
       q.put("_id", fundId);
       JsonObject jObj = RestUtils.createMongoObject(Consts.FUNDS_COLLECTION, Consts.METHOD_GET, authorization, q, null, null, 0, 0, null,
@@ -137,14 +143,16 @@ public class FundsAPI implements FundsResource {
       e.printStackTrace();
       asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsByFundIdResponse.withPlainInternalServerError(messages
           .getMessage(lang, "10001"))));
-    }
+    }*/
+    asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsByFundIdResponse.withPlainInternalServerError(messages
+      .getMessage(lang, "10001"))));
   }
   
   @Validate
   public void deleteFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
-    try {
+/*    try {
       JsonObject q = new JsonObject();
       q.put("_id", fundId);
       JsonObject jObj = RestUtils.createMongoObject(Consts.FUNDS_COLLECTION, Consts.METHOD_DELETE, authorization, q, null, null, 0, 0,
@@ -167,14 +175,16 @@ public class FundsAPI implements FundsResource {
       e.printStackTrace();
       asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(DeleteFundsByFundIdResponse.withPlainInternalServerError(messages
           .getMessage(lang, "10001"))));
-    }
+    }*/
+    asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(DeleteFundsByFundIdResponse.withPlainInternalServerError(messages
+      .getMessage(lang, "10001"))));
   }
 
   @Validate
   public void putFundsByFundId(String fundId, String authorization, String lang, Fund entity,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
-    try {
+/*    try {
       JsonObject q = new JsonObject();
       q.put("_id", fundId);
       JsonObject jObj = RestUtils.createMongoObject(Consts.FUNDS_COLLECTION, Consts.METHOD_PUT, authorization, q, null, null, 0, 0,
@@ -197,8 +207,23 @@ public class FundsAPI implements FundsResource {
       e.printStackTrace();
       asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutFundsByFundIdResponse.withPlainInternalServerError(messages
           .getMessage(lang, "10001"))));
+    }*/
+    asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutFundsByFundIdResponse.withPlainInternalServerError(messages
+      .getMessage(lang, "10001"))));  
+  }
+  
+  private com.sling.rest.persist.Criteria.Order getOrder(Order order, String field) {
+
+    if (field == null) {
+      return null;
     }
-    
+
+    String sortOrder = com.sling.rest.persist.Criteria.Order.ASC;
+    if (order.name().equals("asc")) {
+      sortOrder = com.sling.rest.persist.Criteria.Order.DESC;
+    }
+
+    return new com.sling.rest.persist.Criteria.Order(field, ORDER.valueOf(sortOrder.toUpperCase()));
   }
 
 }
