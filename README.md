@@ -26,6 +26,27 @@ Run:
 
 java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true
 
+The following must be run (manually) - in an editor connected to the postgres database 
+
+in embedded mode:
+port: 6000
+host: 127.0.0.1
+user: username
+password: password
+
+```sh
+create schema test;
+create table test.po_line (
+	_id SERIAL PRIMARY KEY,
+	jsonb JSONB NOT NULL
+);
+
+create table test.funds (
+	_id SERIAL PRIMARY KEY,
+	jsonb JSONB NOT NULL
+);
+```
+
 ### Get Query Examples:
 
 ```sh
