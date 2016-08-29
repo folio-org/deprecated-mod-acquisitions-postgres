@@ -1,21 +1,23 @@
 package com.sling.rest.impl;
 
 import static com.jayway.restassured.RestAssured.given;
-import static com.jayway.restassured.http.ContentType.JSON;
-import static com.jayway.restassured.http.ContentType.TEXT;
 import static org.hamcrest.Matchers.empty;
 import static org.hamcrest.Matchers.equalTo;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
+import io.vertx.ext.unit.Async;
+import io.vertx.ext.unit.TestContext;
+import io.vertx.ext.unit.junit.VertxUnitRunner;
 
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
-import org.junit.AfterClass;
+import org.junit.After;
 import org.junit.Assert;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
@@ -25,6 +27,7 @@ import com.sling.rest.RestVerticle;
 import com.sling.rest.persist.PostgresClient;
 import com.sling.rest.resource.utils.NetworkUtils;
 
+@RunWith(VertxUnitRunner.class)
 public class FundsAPITest {
   private static Vertx vertx;
   
@@ -38,38 +41,43 @@ public class FundsAPITest {
     PostgresClient.getInstance(vertx).startEmbeddedPostgres();
   }
 
-  private static void deployRestVerticle() {
+  private static void deployRestVerticle(TestContext context) {
     DeploymentOptions deploymentOptions = new DeploymentOptions().setConfig(
         new JsonObject().put("http.port", RestAssured.port));
-    vertx.deployVerticle(RestVerticle.class.getName(), deploymentOptions, v -> {
-      
+    vertx.deployVerticle(RestVerticle.class.getName(), deploymentOptions,
+      context.asyncAssertSuccess());
+    
+      Async async = context.async(2);
       PostgresClient.getInstance(vertx).mutate(
         "CREATE SCHEMA test; create table test.funds (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
         res -> {
           if(res.succeeded()){
+            async.countDown();
             System.out.println("funds table created");
             PostgresClient.getInstance(vertx).mutate(
               "create table test.po_line (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
               res2 -> {
                 if(res2.succeeded()){
+                  async.countDown();
                   System.out.println("invoices table created");
                 }
                 else{
                   System.out.println("invoices table NOT created");
                   Assert.fail("invoices table NOT created " + res2.cause().getMessage());
+                  async.complete();
                 }
               });
           }
-          else{
+          else{            
             System.out.println("funds table NOT created");
             Assert.fail("funds table NOT created " + res.cause().getMessage());
+            async.complete();
           }
         });
-    });
   }
   
-  @BeforeClass
-  public static void beforeClass() throws Exception {
+  @Before
+  public void before(TestContext context) throws Exception {
     vertx = Vertx.vertx();
     RestAssured.port = NetworkUtils.nextFreePort(); 
     RestAssured.baseURI = "http://localhost";
@@ -79,8 +87,12 @@ public class FundsAPITest {
       .addHeader("Authorization", "authtoken")
       .build();
 
-    setupPostgres();
-    deployRestVerticle();
+    try {
+      setupPostgres();
+    } catch (Exception e) {
+      context.fail(e);
+    }
+    deployRestVerticle(context);
   }
 
   private String getFile(String filename) throws IOException {
@@ -88,7 +100,7 @@ public class FundsAPITest {
   }
   
   @Test
-  public void getFunds() throws IOException {
+  public void test() throws IOException {
     given().accept("application/json").
     when().get(funds).
     then().
@@ -116,20 +128,18 @@ public class FundsAPITest {
       body("funds[0].code", equalTo("MEDGRANT")).
     extract().response();
     System.out.println(response.asString());
-  }
-
-  @Test
-  public void getPOLines() {
+    
     given().accept("application/json").
     when().get(polines).
     then().
       body("total_records", equalTo(0)).
       body("po_lines", empty());
+    
   }
   
   
-  @AfterClass
-  public static void shutdown(){
-    PostgresClient.stopEmbeddedPostgres();
+  @After
+  public void tearDown(TestContext context) {
+    vertx.close(context.asyncAssertSuccess());
   }
 }
