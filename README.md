@@ -24,15 +24,20 @@ instructions:
 
 Run:
 
-java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true
+`java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
-The following must be run (manually) - in an editor connected to the postgres database 
+The following must be run (manually) - when connected to the postgres database 
 
-in embedded mode:
+credentials when running in embedded mode:
+
 port: 6000
+
 host: 127.0.0.1
+
 user: username
+
 password: password
+
 
 ```sh
 create schema test;
