@@ -52,7 +52,8 @@ create table test.funds (
 ```
 
 
-(see online documentation for additional options)
+#### (see online documentation for additional options)
+
 http://localhost:8082/apidocs/index.html?raml=raml/acquisitions/acquisitions.raml
 
 ### Get Query Examples:
