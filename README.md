@@ -16,6 +16,8 @@ Objects / Schemas:
  - Purchase Order Lines 
  - Vendor
 
+**Important Note** that the raml-module-builder currently assumes JSONB tables in PostgreSQL 
+ 
 Can be run in both embedded postgres mode or with a regular postgres DB server 
 
 instructions:
