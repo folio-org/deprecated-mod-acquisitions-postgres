@@ -5,7 +5,7 @@ This project is built using the [raml-module-builder](https://github.com/folio-o
 
 APIs Implemented: 
 
- - purchase order line CRUD
+ - Purchase order line CRUD
  - Partial Funds CRUD
 
 Objects / Schemas:
@@ -16,7 +16,7 @@ Objects / Schemas:
  - Purchase Order Lines 
  - Vendor
 
-**Important Note** that the raml-module-builder postgres client currently assumes JSONB tables in PostgreSQL.  This is not mandatory and developers can work with regular postgreSQL tables but will need to implement their own data access layer.
+**Important Note**: the raml-module-builder postgres client currently assumes JSONB tables in PostgreSQL.  This is not mandatory and developers can work with regular postgreSQL tables but will need to implement their own data access layer.
  
 Can be run in both embedded postgres mode or with a regular postgres DB server 
 
@@ -50,6 +50,10 @@ create table test.funds (
 	jsonb JSONB NOT NULL
 );
 ```
+
+
+(see online documentation for additional options)
+http://localhost:8082/apidocs/index.html?raml=raml/acquisitions/acquisitions.raml
 
 ### Get Query Examples:
 
