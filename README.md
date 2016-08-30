@@ -30,18 +30,16 @@ Run:
 
 The following must be run (manually) - when connected to the postgres database 
 
+
+```sh
+
 credentials when running in embedded mode:
 
 port: 6000
-
 host: 127.0.0.1
-
 user: username
-
 password: password
 
-
-```sh
 create schema test;
 create table test.po_line (
 	_id SERIAL PRIMARY KEY,
