@@ -1,7 +1,7 @@
 # acquisitions-postgres
 Demo acquisitions module exposing acq apis and objects based on the raml-module-builder framework implemented with async postgres client
 
-This project is built using the [raml-module-builder](https://github.com/folio-org/raml-module-builder), using the postgreSQL async client to implement some basic acquisition APIs. The project also includes a small demo of the drools functionality.
+This project is built using the [raml-module-builder](https://github.com/folio-org/raml-module-builder), using the postgreSQL async client to implement some basic acquisition APIs. The project also includes a small demo of the drools functionality. It is highly recommended to read the [raml-module-builder README](https://github.com/folio-org/raml-module-builder/blob/master/README.md)
 
 APIs Implemented: 
 
@@ -16,7 +16,7 @@ Objects / Schemas:
  - Purchase Order Lines 
  - Vendor
 
-**Important Note** that the raml-module-builder currently assumes JSONB tables in PostgreSQL 
+**Important Note** that the raml-module-builder postgres client currently assumes JSONB tables in PostgreSQL.  This is not mandatory and developers can work with regular postgreSQL tables but will need to implement their own data access layer.
  
 Can be run in both embedded postgres mode or with a regular postgres DB server 
 
@@ -28,8 +28,7 @@ Run:
 
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
-The following must be run (manually) - when connected to the postgres database 
-
+The following must be run (manually) - when connected to the postgres database: 
 
 ```sh
 
@@ -160,3 +159,4 @@ body:
   "renewal_date": ""
 }
 ```
+
