@@ -22,7 +22,9 @@ Can be run in both embedded postgres mode or with a regular postgres DB server
 
 instructions:
 
-`mvn clean install`
+clone / download the raml-module-builder and `mvn clean install`
+
+then do the same for the current project `mvn clean install`
 
 Run:
 
