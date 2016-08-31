@@ -30,6 +30,10 @@ Run:
 
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
+in order to pre-populate the embedded postgres database so that the currently implemented APIs work correctly, please run the following instead:
+
+`java -jar acq-postgres-json-fat.jar postgres_import_path=[path_to_/src/main/resources/import.sql] -Dhttp.port=8085`
+
 The following must be run (manually) - when connected to the postgres database: 
 
 ```sh
@@ -166,4 +170,5 @@ body:
   "renewal_date": ""
 }
 ```
+
 
