@@ -26,11 +26,24 @@ clone / download the raml-module-builder and `mvn clean install`
 
 then do the same for the current project `mvn clean install`
 
-Run:
+To Run:
+
+
+In order to pre-populate the embedded postgres database so that the currently implemented APIs work correctly, please run the following instead:
+
+`java -jar acq-postgres-json-fat.jar postgres_import_path=[path_to_/src/main/resources/import.sql] -Dhttp.port=8085`
+
+
+The basic command to start the module (note that the needed tables will not exist in this case):
 
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
-The following must be run (manually) - when connected to the postgres database: 
+Or 
+
+`java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 db_connection=[postgres-conf.json]`
+
+to run in non-embedded mode - in this case pass the path to a file called postgres-conf.json (see /resources/postgres-conf.json for an example)
+
 
 ```sh
 
@@ -40,6 +53,12 @@ port: 6000
 host: 127.0.0.1
 user: username
 password: password
+
+```
+
+tables referenced 
+
+```sh
 
 create schema test;
 create table test.po_line (
@@ -51,6 +70,7 @@ create table test.funds (
 	_id SERIAL PRIMARY KEY,
 	jsonb JSONB NOT NULL
 );
+
 ```
 
 
@@ -166,4 +186,5 @@ body:
   "renewal_date": ""
 }
 ```
+
 
