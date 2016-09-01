@@ -5,7 +5,8 @@ Copyright (C) 2016 The Open Library Foundation
 
 This software is distributed under the terms of the Apache License, Version 2.0. See the file ["LICENSE"](https://github.com/folio-org/mod-acquisitions-postgres/LICENSE) for more information.
 
-Demo acquisitions module exposing acq apis and objects based on the raml-module-builder framework implemented with async postgres client
+
+#### Demo acquisitions module exposing acq apis and objects based on the raml-module-builder framework implemented with async postgres client
 
 This project is built using the [raml-module-builder](https://github.com/folio-org/raml-module-builder), using the postgreSQL async client to implement some basic acquisition APIs. The project also includes a small demo of the drools functionality. It is highly recommended to read the [raml-module-builder README](https://github.com/folio-org/raml-module-builder/blob/master/README.md)
 
