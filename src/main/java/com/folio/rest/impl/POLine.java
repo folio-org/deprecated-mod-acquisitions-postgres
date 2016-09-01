@@ -1,4 +1,4 @@
-package com.sling.rest.impl;
+package com.folio.rest.impl;
 
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Context;
@@ -9,10 +9,10 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import com.sling.rest.annotations.Validate;
-import com.sling.rest.jaxrs.model.FundDistribution;
-import com.sling.rest.jaxrs.model.PoLine;
-import com.sling.rest.jaxrs.model.PoLines;
-import com.sling.rest.jaxrs.resource.POLinesResource;
+import com.folio.rest.jaxrs.model.FundDistribution;
+import com.folio.rest.jaxrs.model.PoLine;
+import com.folio.rest.jaxrs.model.PoLines;
+import com.folio.rest.jaxrs.resource.POLinesResource;
 import com.sling.rest.persist.PostgresClient;
 import com.sling.rest.persist.Criteria.Criteria;
 import com.sling.rest.persist.Criteria.Criterion;
@@ -57,12 +57,12 @@ public class POLine implements POLinesResource {
             criterion.setOrder(or);
           }
           PostgresClient.getInstance(vertxContext.owner()).get(
-              TABLE_NAME_POLINE, com.sling.rest.jaxrs.model.PoLine.class, criterion, true,
+              TABLE_NAME_POLINE, PoLine.class, criterion, true,
               reply -> {
                 try {
                   if (reply.succeeded()) {
                     System.out.println("sending... getPoLines");
-                    List<com.sling.rest.jaxrs.model.PoLine> polines = (List<PoLine>) reply.result()[0];
+                    List<PoLine> polines = (List<PoLine>) reply.result()[0];
                     PoLines p = new PoLines();
                     p.setPoLines(polines);
                     p.setTotalRecords((int) reply.result()[1]);
@@ -147,7 +147,7 @@ public class POLine implements POLinesResource {
                           postgresClient.endTx(beginTx, done -> {
                             try {
                               postgresClient.get(TABLE_NAME_POLINE, entity, true, reply3 -> {
-                                List<com.sling.rest.jaxrs.model.PoLine> polines = (List<PoLine>) reply3.result()[0];
+                                List<PoLine> polines = (List<PoLine>) reply3.result()[0];
                                 System.out.println("size " + polines.size());
                                 asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PostPoLinesResponse.withJsonCreated(
                                     reply.result(), stream)));
@@ -216,7 +216,7 @@ public class POLine implements POLinesResource {
               PoLine.class, new Criterion(c), true, reply -> {
                 try {
                   if (reply.succeeded()) {
-                    List<com.sling.rest.jaxrs.model.PoLine> polines = (List<PoLine>) reply.result()[0];
+                    List<PoLine> polines = (List<PoLine>) reply.result()[0];
                     PoLines p = new PoLines();
                     p.setPoLines(polines);
                     p.setTotalRecords((int) reply.result()[1]);
