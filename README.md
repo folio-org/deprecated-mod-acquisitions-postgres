@@ -3,7 +3,8 @@
 
 Copyright (C) 2016 The Open Library Foundation
 
-This software is distributed under the terms of the Apache License, Version 2.0. See the file ["LICENSE"](https://github.com/folio-org/mod-acquisitions-postgres/LICENSE) for more information.
+This software is distributed under the terms of the Apache License, Version 2.0. See the file ["LICENSE"](
+https://github.com/folio-org/mod-acquisitions-postgres/blob/master/LICENSE) for more information.
 
 
 ##### Demo acquisitions module exposing acq apis and objects based on the raml-module-builder framework implemented with async postgres client
