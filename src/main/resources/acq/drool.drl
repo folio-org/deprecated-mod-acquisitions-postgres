@@ -1,6 +1,6 @@
 package acq
  
-import com.sling.rest.jaxrs.model.PoLine;
+import org.folio.rest.jaxrs.model.PoLine;
 
 dialect "java"
 

@@ -1,4 +1,4 @@
-package com.folio;
+package org.folio;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
@@ -15,9 +15,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import com.folio.rest.RestVerticle;
-import com.folio.rest.persist.PostgresClient;
-import com.folio.rest.tools.utils.NetworkUtils;
+import org.folio.rest.RestVerticle;
+import org.folio.rest.persist.PostgresClient;
+import org.folio.rest.tools.utils.NetworkUtils;
 
 /**
  * 

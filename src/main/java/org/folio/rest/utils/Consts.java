@@ -1,4 +1,4 @@
-package com.folio.rest.utils;
+package org.folio.rest.utils;
 
 public class Consts {
 
