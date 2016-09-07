@@ -1,4 +1,4 @@
-package com.sling.rest.impl;
+package com.folio.rest.impl;
 
 import static com.jayway.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.empty;
@@ -23,9 +23,9 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
-import com.sling.rest.RestVerticle;
-import com.sling.rest.persist.PostgresClient;
-import com.sling.rest.resource.utils.NetworkUtils;
+import com.folio.rest.RestVerticle;
+import com.folio.rest.persist.PostgresClient;
+import com.folio.rest.tools.utils.NetworkUtils;
 
 @RunWith(VertxUnitRunner.class)
 public class FundsAPITest {

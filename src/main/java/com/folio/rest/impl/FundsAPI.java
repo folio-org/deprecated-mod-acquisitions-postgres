@@ -9,18 +9,18 @@ import java.util.List;
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sling.rest.annotations.Validate;
+import com.folio.rest.annotations.Validate;
 import com.folio.rest.jaxrs.model.Fund;
 import com.folio.rest.jaxrs.model.Funds;
 import com.folio.rest.jaxrs.resource.FundsResource;
 import com.folio.rest.utils.Consts;
-import com.sling.rest.persist.PostgresClient;
-import com.sling.rest.persist.Criteria.Criterion;
-import com.sling.rest.persist.Criteria.Limit;
-import com.sling.rest.persist.Criteria.Offset;
-import com.sling.rest.persist.Criteria.Order.ORDER;
-import com.sling.rest.resource.utils.OutStream;
-import com.sling.rest.tools.Messages;
+import com.folio.rest.persist.PostgresClient;
+import com.folio.rest.persist.Criteria.Criterion;
+import com.folio.rest.persist.Criteria.Limit;
+import com.folio.rest.persist.Criteria.Offset;
+import com.folio.rest.persist.Criteria.Order.ORDER;
+import com.folio.rest.tools.utils.OutStream;
+import com.folio.rest.tools.Messages;
 
 public class FundsAPI implements FundsResource {
 
@@ -38,7 +38,7 @@ public class FundsAPI implements FundsResource {
     vertxContext.runOnContext(v -> {
       try {
         criterion.setLimit(new Limit(limit)).setOffset(new Offset(offset));
-        com.sling.rest.persist.Criteria.Order or = getOrder(order, orderBy);
+        com.folio.rest.persist.Criteria.Order or = getOrder(order, orderBy);
         if (or != null) {
           criterion.setOrder(or);
         }
@@ -208,18 +208,18 @@ public class FundsAPI implements FundsResource {
       .getMessage(lang, "10001"))));  
   }
   
-  private com.sling.rest.persist.Criteria.Order getOrder(Order order, String field) {
+  private com.folio.rest.persist.Criteria.Order getOrder(Order order, String field) {
 
     if (field == null) {
       return null;
     }
 
-    String sortOrder = com.sling.rest.persist.Criteria.Order.ASC;
+    String sortOrder = com.folio.rest.persist.Criteria.Order.ASC;
     if (order.name().equals("asc")) {
-      sortOrder = com.sling.rest.persist.Criteria.Order.DESC;
+      sortOrder = com.folio.rest.persist.Criteria.Order.DESC;
     }
 
-    return new com.sling.rest.persist.Criteria.Order(field, ORDER.valueOf(sortOrder.toUpperCase()));
+    return new com.folio.rest.persist.Criteria.Order(field, ORDER.valueOf(sortOrder.toUpperCase()));
   }
 
 }
