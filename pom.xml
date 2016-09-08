@@ -19,8 +19,16 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>id-maven-repo</id>
+			<name>Index Data Maven Repository</name>
+			<url>https://folio-nexus.indexdata.com/repository/maven-snapshots</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
-		
+
 		<dependency>
 			<groupId>org.folio</groupId>
 			<artifactId>domain-models-api-interfaces</artifactId>
@@ -32,25 +40,25 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-  <groupId>io.vertx</groupId>
-  	<artifactId>vertx-mysql-postgresql-client</artifactId>
-  	<version>3.3.2</version>
+			<groupId>io.vertx</groupId>
+			<artifactId>vertx-mysql-postgresql-client</artifactId>
+			<version>3.3.2</version>
 		</dependency>
-		
-				    <!-- test dependencies -->
-    <dependency>
-      <groupId>com.jayway.restassured</groupId>
-      <artifactId>rest-assured</artifactId>
-       <version>2.9.0</version>
-       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-		
+
+		<!-- test dependencies -->
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>rest-assured</artifactId>
+			<version>2.9.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+
 	</dependencies>
 
 	<build>
@@ -145,8 +153,8 @@
 					</dependency>
 				</dependencies>
 			</plugin>
-			
-				<plugin>
+
+			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.0.1</version>
 				<executions>
@@ -169,31 +177,32 @@
 				</executions>
 			</plugin>
 
-	<!-- replace the baseuri and the protocol in the ramls that are in the apidocs directory so that they can at least be used
-	to check via the html api console on IE -->
-  <plugin>
-    <artifactId>maven-antrun-plugin</artifactId>
-    <executions>
-      <execution>
-        <phase>prepare-package</phase>
-        <configuration>
-          <tasks>
-            <replace token= "baseUri: http://github.com/sling-incubator/lsp-apis" 
-            value="baseUri: http://localhost:${http.port}/apis" dir="${basedir}/target/classes/apidocs/raml/acquisitions">                                 
-              <include name="**/*.raml"/>
-            </replace>
-            <replace token= "protocols: [ HTTPS ]" 
-            value="protocols: [ HTTP ]" dir="${basedir}/target/classes/apidocs/raml/acquisitions">                                 
-              <include name="**/*.raml"/>
-            </replace>
-          </tasks>
-        </configuration>
-        <goals>
-          <goal>run</goal>
-        </goals>
-      </execution>
-    </executions>
-  </plugin>
+			<!-- replace the baseuri and the protocol in the ramls that are in the 
+				apidocs directory so that they can at least be used to check via the html 
+				api console on IE -->
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>prepare-package</phase>
+						<configuration>
+							<tasks>
+								<replace token="baseUri: http://github.com/sling-incubator/lsp-apis"
+									value="baseUri: http://localhost:${http.port}/apis" dir="${basedir}/target/classes/apidocs/raml/acquisitions">
+									<include name="**/*.raml" />
+								</replace>
+								<replace token="protocols: [ HTTPS ]" value="protocols: [ HTTP ]"
+									dir="${basedir}/target/classes/apidocs/raml/acquisitions">
+									<include name="**/*.raml" />
+								</replace>
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
