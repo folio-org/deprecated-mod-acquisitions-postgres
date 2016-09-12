@@ -10,6 +10,7 @@ import io.vertx.ext.unit.Async;
 import io.vertx.ext.unit.TestContext;
 import io.vertx.ext.unit.junit.VertxUnitRunner;
 
+import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
@@ -23,6 +24,7 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
+
 import org.folio.rest.RestVerticle;
 import org.folio.rest.persist.PostgresClient;
 import org.folio.rest.tools.utils.NetworkUtils;
@@ -58,6 +60,9 @@ public class FundsAPITest {
               "create table test.po_line (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
               res2 -> {
                 if(res2.succeeded()){
+                  File resourcesDirectory = new File("src/test/resources");
+                  PostgresClient.getInstance(vertx).
+                    importFile(resourcesDirectory.getAbsolutePath()+"/import.txt", "test.po_line");
                   async.countDown();
                   System.out.println("invoices table created");
                 }
@@ -93,6 +98,7 @@ public class FundsAPITest {
       context.fail(e);
     }
     deployRestVerticle(context);
+
   }
 
   private String getFile(String filename) throws IOException {
@@ -132,8 +138,7 @@ public class FundsAPITest {
     given().accept("application/json").
     when().get(polines).
     then().
-      body("total_records", equalTo(0)).
-      body("po_lines", empty());
+      body("total_records", equalTo(22));
     
   }
   
