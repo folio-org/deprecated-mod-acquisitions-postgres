@@ -20,7 +20,7 @@ import org.folio.rest.persist.Criteria.Limit;
 import org.folio.rest.persist.Criteria.Offset;
 import org.folio.rest.persist.Criteria.Order.ORDER;
 import org.folio.rest.tools.utils.OutStream;
-import org.folio.rest.tools.Messages;
+import org.folio.rest.tools.messages.Messages;
 
 /**
  * @author shale
