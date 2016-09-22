@@ -70,13 +70,13 @@ tables referenced
 
 create schema test;
 create table test.po_line (
-	_id SERIAL PRIMARY KEY,
-	jsonb JSONB NOT NULL
+  _id SERIAL PRIMARY KEY,
+  jsonb JSONB NOT NULL
 );
 
 create table test.funds (
-	_id SERIAL PRIMARY KEY,
-	jsonb JSONB NOT NULL
+  _id SERIAL PRIMARY KEY,
+  jsonb JSONB NOT NULL
 );
 
 ```
