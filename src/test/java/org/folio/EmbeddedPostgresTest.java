@@ -20,7 +20,7 @@ import org.folio.rest.persist.PostgresClient;
 import org.folio.rest.tools.utils.NetworkUtils;
 
 /**
- * 
+ *
  * The test inserts and checks that insert was successful - then opens a transaction - inserts 2 records - selects to verify inserts are not
  * returned then commits and verifies that they are returned
  */
@@ -31,41 +31,41 @@ public class EmbeddedPostgresTest {
   TestContext               context;
   Async                     async = null;
   int port;
-  
+
   *//**
-   * 
+   *
    * @param context
    *          the test context.
    *//*
   @Before
   public void setUp(TestContext context) throws IOException {
-    
-    
+
+
     vertx = Vertx.vertx();
     this.context = context;
-    
+
     //get free port
     port = NetworkUtils.nextFreePort();
-    
+
     //start verticle on free port
     DeploymentOptions options = new DeploymentOptions().setConfig(new JsonObject().put("http.port",
       port));
     vertx.deployVerticle(RestVerticle.class.getName(), options, context.asyncAssertSuccess());
 
     async = context.async();
-    
+
     //sync - blocking - start embedded postgres
     try {
       PostgresClient.setIsEmbedded(true);
       PostgresClient.getInstance(vertx).startEmbeddedPostgres();
       try {
-        
+
         //import from .sql file test
-         
+
         File resourcesDirectory = new File("src/test/resources");
         PostgresClient.getInstance(vertx).
           importFile(resourcesDirectory.getAbsolutePath()+"/import.sql");
-        
+
        PostgresClient.getInstance(vertx).select(
           "SELECT count(*) FROM test.po_line",
           res3 -> {
@@ -79,13 +79,13 @@ public class EmbeddedPostgresTest {
               async.complete();
             }
           });
-        
+
       } catch (Exception e1) {
         context.fail();
         async.complete();
         e1.printStackTrace();
       }
-      
+
         //check querying and transactions
         PostgresClient.getInstance(vertx).mutate(
         "create table customers (id SERIAL PRIMARY KEY,name VARCHAR(16) NOT NULL,jsonb JSONB NOT NULL)",

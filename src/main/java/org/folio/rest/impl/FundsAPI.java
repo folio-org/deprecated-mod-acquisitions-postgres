@@ -34,7 +34,7 @@ public class FundsAPI implements FundsResource {
 
     Criterion criterion = Criterion.json2Criterion(query);
     System.out.println("sending... getFunds");
-    
+
     vertxContext.runOnContext(v -> {
       try {
         criterion.setLimit(new Limit(limit)).setOffset(new Offset(offset));
@@ -62,9 +62,9 @@ public class FundsAPI implements FundsResource {
             lang, "10001"))));
       }
     });
-    
+
   }
-  
+
   @Override
   @Validate
   public void postFunds(String authorization, String lang, Fund entity, Handler<AsyncResult<Response>> asyncResultHandler,
@@ -104,7 +104,7 @@ public class FundsAPI implements FundsResource {
           lang, "10001"))));
     }
   }
-  
+
   @Validate
   public void getFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
@@ -143,7 +143,7 @@ public class FundsAPI implements FundsResource {
     asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsByFundIdResponse.withPlainInternalServerError(messages
       .getMessage(lang, "10001"))));
   }
-  
+
   @Validate
   public void deleteFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
@@ -205,9 +205,9 @@ public class FundsAPI implements FundsResource {
           .getMessage(lang, "10001"))));
     }*/
     asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutFundsByFundIdResponse.withPlainInternalServerError(messages
-      .getMessage(lang, "10001"))));  
+      .getMessage(lang, "10001"))));
   }
-  
+
   private org.folio.rest.persist.Criteria.Order getOrder(Order order, String field) {
 
     if (field == null) {

@@ -13,13 +13,13 @@ RUN groupadd folio && \
     useradd -r -d $VERTICLE_HOME -g folio -M folio && \
     chown -R folio.folio $VERTICLE_HOME
 
-# Run as this user 
+# Run as this user
 USER folio
 
 # Launch the verticle
 WORKDIR $VERTICLE_HOME
 
-# Expose this port locally in the container. 
+# Expose this port locally in the container.
 # '6000' for access to embedded Postgres
 EXPOSE 8081 6000
 

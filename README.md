@@ -11,22 +11,22 @@ https://github.com/folio-org/mod-acquisitions-postgres/blob/master/LICENSE) for 
 
 This project is built using the [raml-module-builder](https://github.com/folio-org/raml-module-builder), using the postgreSQL async client to implement some basic acquisition APIs. The project also includes a small demo of the drools functionality. It is highly recommended to read the [raml-module-builder README](https://github.com/folio-org/raml-module-builder/blob/master/README.md)
 
-APIs Implemented: 
+APIs Implemented:
 
  - Purchase order line CRUD
  - Partial Funds CRUD
 
 Objects / Schemas:
 
- - Funds 
- - Invoices 
- - Invoice Lines 
- - Purchase Order Lines 
+ - Funds
+ - Invoices
+ - Invoice Lines
+ - Purchase Order Lines
  - Vendor
 
 **Important Note**: the raml-module-builder postgres client currently assumes JSONB tables in PostgreSQL.  This is not mandatory and developers can work with regular postgreSQL tables but will need to implement their own data access layer.
- 
-Can be run in both embedded postgres mode or with a regular postgres DB server 
+
+Can be run in both embedded postgres mode or with a regular postgres DB server
 
 instructions:
 
@@ -46,7 +46,7 @@ The basic command to start the module (note that the needed tables will not exis
 
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
-Or 
+Or
 
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 db_connection=[postgres-conf.json]`
 
@@ -64,19 +64,19 @@ password: password
 
 ```
 
-tables referenced 
+tables referenced
 
 ```sh
 
 create schema test;
 create table test.po_line (
-	_id SERIAL PRIMARY KEY,
-	jsonb JSONB NOT NULL
+  _id SERIAL PRIMARY KEY,
+  jsonb JSONB NOT NULL
 );
 
 create table test.funds (
-	_id SERIAL PRIMARY KEY,
-	jsonb JSONB NOT NULL
+  _id SERIAL PRIMARY KEY,
+  jsonb JSONB NOT NULL
 );
 
 ```
