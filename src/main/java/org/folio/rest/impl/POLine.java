@@ -197,7 +197,7 @@ public class POLine implements POLinesResource {
     }
 
   }
-  
+
   @Validate
   @Override
   public void getPoLinesByPoLineId(String poLineId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
@@ -288,7 +288,7 @@ public class POLine implements POLinesResource {
     }
 
   }
-  
+
   @Validate
   @Override
   public void putPoLinesByPoLineId(String poLineId, String authorization, String lang, PoLine entity,
@@ -331,7 +331,7 @@ public class POLine implements POLinesResource {
            * us.setValue(entity.getPrice().getPoCurrency().getValue()); //see
            * the @JsonProperty(value="YYY") annotation in the javadocs (do
            * mouseover on the getter)
-           * 
+           *
            * PostgresClient.getInstance(vertxContext.owner()).update(
            * TABLE_NAME_POLINE, us, new Criterion( c ), true, reply -> { try {
            * if (reply.succeeded()) {

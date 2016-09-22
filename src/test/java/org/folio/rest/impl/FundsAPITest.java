@@ -32,12 +32,12 @@ import org.folio.rest.tools.utils.NetworkUtils;
 @RunWith(VertxUnitRunner.class)
 public class FundsAPITest {
   private static Vertx vertx;
-  
+
   /** funds path */
   private static String funds    = "/apis/funds";
   /** invoices path */
   private static String polines = "/apis/po_lines";
-  
+
   private static void setupPostgres() throws Exception {
     PostgresClient.setIsEmbedded(true);
     PostgresClient.getInstance(vertx).startEmbeddedPostgres();
@@ -48,7 +48,7 @@ public class FundsAPITest {
         new JsonObject().put("http.port", RestAssured.port));
     vertx.deployVerticle(RestVerticle.class.getName(), deploymentOptions,
       context.asyncAssertSuccess());
-    
+
       Async async = context.async(2);
       PostgresClient.getInstance(vertx).mutate(
         "CREATE SCHEMA test; create table test.funds (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
@@ -73,18 +73,18 @@ public class FundsAPITest {
                 }
               });
           }
-          else{            
+          else{
             System.out.println("funds table NOT created");
             Assert.fail("funds table NOT created " + res.cause().getMessage());
             async.complete();
           }
         });
   }
-  
+
   @Before
   public void before(TestContext context) throws Exception {
     vertx = Vertx.vertx();
-    RestAssured.port = NetworkUtils.nextFreePort(); 
+    RestAssured.port = NetworkUtils.nextFreePort();
     RestAssured.baseURI = "http://localhost";
     RestAssured.config = RestAssured.config().encoderConfig(EncoderConfig.encoderConfig()
         .appendDefaultContentCharsetToContentTypeIfUndefined(false));
@@ -104,7 +104,7 @@ public class FundsAPITest {
   private String getFile(String filename) throws IOException {
     return IOUtils.toString(getClass().getClassLoader().getResourceAsStream(filename), "UTF-8");
   }
-  
+
   @Test
   public void test() throws IOException {
     given().accept("application/json").
@@ -112,7 +112,7 @@ public class FundsAPITest {
     then().
       body("total_records", equalTo(0)).
       body("funds", empty());
-    
+
     Response response =
     given().
       body(getFile("fund1.json")).
@@ -134,15 +134,15 @@ public class FundsAPITest {
       body("funds[0].code", equalTo("MEDGRANT")).
     extract().response();
     System.out.println(response.asString());
-    
+
     given().accept("application/json").
     when().get(polines).
     then().
       body("total_records", equalTo(22));
-    
+
   }
-  
-  
+
+
   @After
   public void tearDown(TestContext context) {
     vertx.close(context.asyncAssertSuccess());

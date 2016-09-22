@@ -1,5 +1,5 @@
 package acq
- 
+
 import org.folio.rest.jaxrs.model.PoLine;
 
 dialect "java"
@@ -7,10 +7,10 @@ dialect "java"
 rule "PoLine needs owner or vendor - dummy test"
 
 	no-loop
-	
+
     when
         v:PoLine(getAccessProvider().equals(""))
     then
     	System.out.println("--------- External Drool rule launched -----------" );
-    	//throw new java.lang.Exception("PoLine needs owner and vendor"); 
+    	//throw new java.lang.Exception("PoLine needs owner and vendor");
 end
