@@ -1,12 +1,10 @@
 FROM openjdk:8-jre
 
-ENV VERTICLE_FILE acq-postgres-json-fat.jar
-
 # Set the location of the verticles
 ENV VERTICLE_HOME /usr/verticles
 
 # Copy your fat jar to the container
-COPY target/$VERTICLE_FILE $VERTICLE_HOME/
+COPY target/*-fat.jar $VERTICLE_HOME/module.jar
 
 # Create user/group 'folio'
 RUN groupadd folio && \
@@ -23,5 +21,5 @@ WORKDIR $VERTICLE_HOME
 # '6000' for access to embedded Postgres
 EXPOSE 8081 6000
 
-ENTRYPOINT ["java", "-jar", "acq-postgres-json-fat.jar", "embed_postgres=true"]
+ENTRYPOINT ["java", "-jar", "module.jar", "embed_postgres=true"]
 CMD []
