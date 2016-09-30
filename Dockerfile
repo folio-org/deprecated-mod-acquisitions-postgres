@@ -21,5 +21,5 @@ WORKDIR $VERTICLE_HOME
 # '6000' for access to embedded Postgres
 EXPOSE 8081 6000
 
-ENTRYPOINT ["java", "-jar", "module.jar", "embed_postgres=true"]
-CMD []
+ENTRYPOINT ["java", "-jar", "module.jar"]
+CMD ["embed_postgres=true"]
