@@ -34,9 +34,9 @@ public class FundsAPITest {
   private static Vertx vertx;
 
   /** funds path */
-  private static String funds    = "/apis/funds";
+  private static String funds = "/funds";
   /** invoices path */
-  private static String polines = "/apis/po_lines";
+  private static String polines = "/po_lines";
 
   private static void setupPostgres() throws Exception {
     PostgresClient.setIsEmbedded(true);
