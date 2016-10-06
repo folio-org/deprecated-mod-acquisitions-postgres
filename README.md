@@ -96,34 +96,34 @@ Accept: application/json
 
 contains query:
 
-http://localhost:8082/apis/po_lines?query=[{"field":"'po_line_status'","value":{     "value": "SENT", "desc": "sent to vendor"},"op":"@>"}]
+http://localhost:8082/po_lines?query=[{"field":"'po_line_status'","value":{     "value": "SENT", "desc": "sent to vendor"},"op":"@>"}]
 
 regex query
 
-http://localhost:8082/apis/po_lines?query=[{"field":"'po_line_status'->>'value'","value":"fa(l|t)se","op":"SIMILAR TO"}, {"op":"NOT"}]
+http://localhost:8082/po_lines?query=[{"field":"'po_line_status'->>'value'","value":"fa(l|t)se","op":"SIMILAR TO"}, {"op":"NOT"}]
 
 simple query
 
-http://localhost:8082/apis/po_lines
+http://localhost:8082/po_lines
 
 querying on arrays
 
-http://localhost:8082/apis/po_lines?query=[{"field":"'fund_distributions'->[]->'amount'->>'sum'","value":120,"op":">"}]
+http://localhost:8082/po_lines?query=[{"field":"'fund_distributions'->[]->'amount'->>'sum'","value":120,"op":">"}]
 
 multiple constraints (currently default between constraints is AND)
 
-http://localhost:8082/apis/po_lines?query=[[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'owner'->>'value'","value":"MITLIBMATH","op":"="},{"op":"AND"}],[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"}],[{"field":"'rush'","value":"false","op":"="}], [{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'type'->>'value'","value":"PRINT_ONETIME","op":"="}, {"op":"OR"}]]
+http://localhost:8082/po_lines?query=[[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'owner'->>'value'","value":"MITLIBMATH","op":"="},{"op":"AND"}],[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"}],[{"field":"'rush'","value":"false","op":"="}], [{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'type'->>'value'","value":"PRINT_ONETIME","op":"="}, {"op":"OR"}]]
 
 comparison query:
 
-http://localhost:8082/apis/po_lines?query=[{"field":"'fund_distributions'->'amount'->>'sum'","value":120,"op":">"}]
+http://localhost:8082/po_lines?query=[{"field":"'fund_distributions'->'amount'->>'sum'","value":120,"op":">"}]
 ```
 
 
 ### Post Query Example:
 
 ```sh
-http://localhost:8082/apis/po_lines
+http://localhost:8082/po_lines
 
 make sure to include appropriate headers as the runtime framework validates them
 
