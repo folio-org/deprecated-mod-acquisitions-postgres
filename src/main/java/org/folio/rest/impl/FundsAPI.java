@@ -29,7 +29,7 @@ public class FundsAPI implements FundsResource {
 
   @Override
   @Validate
-  public void getFunds(String authorization, String query, String orderBy, Order order, int offset, int limit, String lang,
+  public void getFunds(String query, String orderBy, Order order, int offset, int limit, String lang,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
     Criterion criterion = Criterion.json2Criterion(query);
@@ -67,7 +67,7 @@ public class FundsAPI implements FundsResource {
 
   @Override
   @Validate
-  public void postFunds(String authorization, String lang, Fund entity, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void postFunds(String lang, Fund entity, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
     try {
@@ -106,7 +106,7 @@ public class FundsAPI implements FundsResource {
   }
 
   @Validate
-  public void getFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void getFundsByFundId(String fundId, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
 /*    try {
@@ -145,7 +145,7 @@ public class FundsAPI implements FundsResource {
   }
 
   @Validate
-  public void deleteFundsByFundId(String fundId, String authorization, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void deleteFundsByFundId(String fundId, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
 /*    try {
@@ -177,7 +177,7 @@ public class FundsAPI implements FundsResource {
   }
 
   @Validate
-  public void putFundsByFundId(String fundId, String authorization, String lang, Fund entity,
+  public void putFundsByFundId(String fundId, String lang, Fund entity,
       Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
 /*    try {
