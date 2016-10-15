@@ -5,10 +5,12 @@ import io.vertx.core.Context;
 import io.vertx.core.Handler;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.folio.rest.annotations.Validate;
 import org.folio.rest.jaxrs.model.Fund;
 import org.folio.rest.jaxrs.model.Funds;
@@ -30,7 +32,7 @@ public class FundsAPI implements FundsResource {
   @Override
   @Validate
   public void getFunds(String query, String orderBy, Order order, int offset, int limit, String lang,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
+      Map<String, String>okapiHeaders, Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
     Criterion criterion = Criterion.json2Criterion(query);
     System.out.println("sending... getFunds");
@@ -58,7 +60,8 @@ public class FundsAPI implements FundsResource {
             });
       } catch (Exception e) {
         e.printStackTrace();
-        asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsResponse.withPlainInternalServerError(messages.getMessage(
+        asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsResponse
+          .withPlainInternalServerError(messages.getMessage(
             lang, "10001"))));
       }
     });
@@ -67,7 +70,8 @@ public class FundsAPI implements FundsResource {
 
   @Override
   @Validate
-  public void postFunds(String lang, Fund entity, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void postFunds(String lang, Fund entity, Map<String, String>okapiHeaders,
+      Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
     try {
@@ -100,13 +104,15 @@ public class FundsAPI implements FundsResource {
       });
     } catch (Exception e) {
       e.printStackTrace();
-      asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PostFundsResponse.withPlainInternalServerError(messages.getMessage(
+      asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PostFundsResponse
+        .withPlainInternalServerError(messages.getMessage(
           lang, "10001"))));
     }
   }
-
+  @Override
   @Validate
-  public void getFundsByFundId(String fundId, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void getFundsByFundId(String fundId, String lang, Map<String, String>okapiHeaders,
+      Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
 /*    try {
@@ -143,9 +149,10 @@ public class FundsAPI implements FundsResource {
     asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(GetFundsByFundIdResponse.withPlainInternalServerError(messages
       .getMessage(lang, "10001"))));
   }
-
+  @Override
   @Validate
-  public void deleteFundsByFundId(String fundId, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void deleteFundsByFundId(String fundId, String lang, Map<String, String>okapiHeaders,
+      Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
 /*    try {
@@ -175,10 +182,10 @@ public class FundsAPI implements FundsResource {
     asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(DeleteFundsByFundIdResponse.withPlainInternalServerError(messages
       .getMessage(lang, "10001"))));
   }
-
+  @Override
   @Validate
   public void putFundsByFundId(String fundId, String lang, Fund entity,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
+      Map<String, String>okapiHeaders, Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
 /*    try {
       JsonObject q = new JsonObject();

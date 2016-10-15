@@ -5,6 +5,7 @@ import io.vertx.core.Context;
 import io.vertx.core.Handler;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.core.Response;
 
@@ -38,7 +39,7 @@ public class POLine implements POLinesResource {
   @Validate
   @Override
   public void getPoLines(String query, String orderBy, Order order, int offset, int limit, String lang,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
+      Map<String, String>okapiHeaders, Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
 
     /**
      * query can be a json array containing one or more {field, value, op}
@@ -112,7 +113,8 @@ public class POLine implements POLinesResource {
 
   @Override
   @Validate
-  public void postPoLines(String lang, PoLine entity, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void postPoLines(String lang, PoLine entity, Map<String, String>okapiHeaders,
+      Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
     try {
@@ -200,7 +202,8 @@ public class POLine implements POLinesResource {
 
   @Validate
   @Override
-  public void getPoLinesByPoLineId(String poLineId, String lang, Handler<AsyncResult<Response>> asyncResultHandler,
+  public void getPoLinesByPoLineId(String poLineId, String lang, Map<String, String>okapiHeaders,
+      Handler<AsyncResult<Response>> asyncResultHandler,
       Context vertxContext) throws Exception {
 
     try {
@@ -250,7 +253,7 @@ public class POLine implements POLinesResource {
   @Validate
   @Override
   public void deletePoLinesByPoLineId(String poLineId, String lang,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
+      Map<String, String>okapiHeaders, Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
     try {
       System.out.println("sending... getPoLinesByPoLineId");
       vertxContext.runOnContext(v -> {
@@ -292,7 +295,7 @@ public class POLine implements POLinesResource {
   @Validate
   @Override
   public void putPoLinesByPoLineId(String poLineId, String lang, PoLine entity,
-      Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
+      Map<String, String>okapiHeaders, Handler<AsyncResult<Response>> asyncResultHandler, Context vertxContext) throws Exception {
     try {
       System.out.println("sending... putPoLinesByPoLineId");
       vertxContext.runOnContext(v -> {
@@ -350,13 +353,15 @@ public class POLine implements POLinesResource {
 
         } catch (Exception e) {
           e.printStackTrace();
-          asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutPoLinesByPoLineIdResponse.withPlainInternalServerError(messages
+          asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutPoLinesByPoLineIdResponse
+            .withPlainInternalServerError(messages
               .getMessage(lang, "10001"))));
         }
       });
     } catch (Exception e) {
       e.printStackTrace();
-      asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutPoLinesByPoLineIdResponse.withPlainInternalServerError(messages
+      asyncResultHandler.handle(io.vertx.core.Future.succeededFuture(PutPoLinesByPoLineIdResponse
+        .withPlainInternalServerError(messages
           .getMessage(lang, "10001"))));
     }
   }
