@@ -91,7 +91,6 @@ http://localhost:8082/apidocs/index.html?raml=raml/acquisitions/acquisitions.ram
 ```sh
 make sure to include appropriate headers as the runtime framework validates them
 
-Authorization: aaaaa
 Accept: application/json
 
 contains query:
@@ -127,7 +126,6 @@ http://localhost:8082/po_lines
 
 make sure to include appropriate headers as the runtime framework validates them
 
-Authorization: aaaaa
 Accept: application/json
 Content-Type: application/json
 
