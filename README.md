@@ -26,9 +26,9 @@ Objects / Schemas:
 
 **Important Note**: the raml-module-builder postgres client currently assumes JSONB tables in PostgreSQL.  This is not mandatory and developers can work with regular postgreSQL tables but will need to implement their own data access layer.
 
-Can be run in both embedded postgres mode or with a regular postgres DB server
+Can be run in both embedded postgres mode or with a regular postgres DB server.
 
-instructions:
+Instructions:
 
 clone / download the raml-module-builder and `mvn clean install`
 
@@ -55,7 +55,7 @@ to run in non-embedded mode - in this case pass the path to a file called postgr
 
 ```sh
 
-credentials when running in embedded mode:
+Credentials when running in embedded mode:
 
 port: 6000
 host: 127.0.0.1
@@ -64,7 +64,7 @@ password: password
 
 ```
 
-tables referenced
+Tables referenced:
 
 ```sh
 
@@ -89,7 +89,7 @@ http://localhost:8082/apidocs/index.html?raml=raml/acquisitions/acquisitions.ram
 ### Get Query Examples:
 
 ```sh
-make sure to include appropriate headers as the runtime framework validates them
+Make sure to include appropriate headers, as the runtime framework validates them.
 
 Accept: application/json
 
@@ -97,19 +97,19 @@ contains query:
 
 http://localhost:8082/po_lines?query=[{"field":"'po_line_status'","value":{     "value": "SENT", "desc": "sent to vendor"},"op":"@>"}]
 
-regex query
+regex query:
 
 http://localhost:8082/po_lines?query=[{"field":"'po_line_status'->>'value'","value":"fa(l|t)se","op":"SIMILAR TO"}, {"op":"NOT"}]
 
-simple query
+simple query:
 
 http://localhost:8082/po_lines
 
-querying on arrays
+querying on arrays:
 
 http://localhost:8082/po_lines?query=[{"field":"'fund_distributions'->[]->'amount'->>'sum'","value":120,"op":">"}]
 
-multiple constraints (currently default between constraints is AND)
+multiple constraints (currently default between constraints is AND):
 
 http://localhost:8082/po_lines?query=[[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'owner'->>'value'","value":"MITLIBMATH","op":"="},{"op":"AND"}],[{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"}],[{"field":"'rush'","value":"false","op":"="}], [{"field":"'po_line_status'->>'value'","value":"SENT","op":"like"},{"field":"'type'->>'value'","value":"PRINT_ONETIME","op":"="}, {"op":"OR"}]]
 
