@@ -20,8 +20,8 @@ import org.folio.rest.persist.Criteria.Criterion;
 import org.folio.rest.persist.Criteria.Limit;
 import org.folio.rest.persist.Criteria.Offset;
 import org.folio.rest.persist.Criteria.Order.ORDER;
-import org.folio.rest.tools.utils.OutStream;
 import org.folio.rest.tools.messages.Messages;
+import org.folio.rest.tools.utils.OutStream;
 
 /**
  * @author shale
@@ -29,10 +29,10 @@ import org.folio.rest.tools.messages.Messages;
  */
 public class POLine implements POLinesResource {
 
-  public final static String TABLE_NAME_POLINE = "test.po_line";
-  public final static String TABLE_NAME_FUNDS  = "test.funds";
+  public static final String TABLE_NAME_POLINE = "test.po_line";
+  public static final String TABLE_NAME_FUNDS  = "test.funds";
 
-  public final static String JSONB_FIELD       = "jsonb";
+  public static final String JSONB_FIELD       = "jsonb";
 
   private final Messages     messages          = Messages.getInstance();
 

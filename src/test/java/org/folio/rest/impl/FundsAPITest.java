@@ -14,6 +14,9 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.folio.rest.RestVerticle;
+import org.folio.rest.persist.PostgresClient;
+import org.folio.rest.tools.utils.NetworkUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -24,10 +27,6 @@ import com.jayway.restassured.RestAssured;
 import com.jayway.restassured.builder.RequestSpecBuilder;
 import com.jayway.restassured.config.EncoderConfig;
 import com.jayway.restassured.response.Response;
-
-import org.folio.rest.RestVerticle;
-import org.folio.rest.persist.PostgresClient;
-import org.folio.rest.tools.utils.NetworkUtils;
 
 @RunWith(VertxUnitRunner.class)
 public class FundsAPITest {
