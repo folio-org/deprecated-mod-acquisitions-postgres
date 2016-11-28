@@ -28,7 +28,7 @@ Objects / Schemas:
 
 Can be run in both embedded postgres mode or with a regular postgres DB server.
 
-Instructions:
+## Instructions
 
 clone / download the raml-module-builder and `mvn clean install`
 
@@ -51,7 +51,6 @@ Or
 `java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 db_connection=[postgres-conf.json]`
 
 to run in non-embedded mode - in this case pass the path to a file called postgres-conf.json (see /resources/postgres-conf.json for an example)
-
 
 ```sh
 
@@ -81,8 +80,10 @@ create table test.funds (
 
 ```
 
+### Documentation of the Service's APIs
 
-#### (see online documentation for additional options)
+Documentation is auto-generated from the RAML file into HTML.
+After the service is started, the documentation can be viewed at:
 
 http://localhost:8082/apidocs/index.html?raml=raml/acquisitions/acquisitions.raml
 
