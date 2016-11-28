@@ -44,11 +44,11 @@ In order to pre-populate the embedded postgres database so that the currently im
 
 The basic command to start the module (note that the needed tables will not exist in this case):
 
-`java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
+`java -jar target/acq-postgres-json-fat.jar -Dhttp.port=8082 embed_postgres=true`
 
 Or
 
-`java -jar acq-postgres-json-fat.jar -Dhttp.port=8082 db_connection=[postgres-conf.json]`
+`java -jar target/acq-postgres-json-fat.jar -Dhttp.port=8082 db_connection=[postgres-conf.json]`
 
 to run in non-embedded mode - in this case pass the path to a file called postgres-conf.json (see /resources/postgres-conf.json for an example)
 
