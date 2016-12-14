@@ -50,18 +50,18 @@ public class FundsAPITest {
 
       Async async = context.async(2);
       PostgresClient.getInstance(vertx).mutate(
-        "CREATE SCHEMA test; create table test.funds (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
+        "create table funds (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
         res -> {
           if(res.succeeded()){
             async.countDown();
             System.out.println("funds table created");
             PostgresClient.getInstance(vertx).mutate(
-              "create table test.po_line (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
+              "create table po_line (_id SERIAL PRIMARY KEY,jsonb JSONB NOT NULL)",
               res2 -> {
                 if(res2.succeeded()){
                   File resourcesDirectory = new File("src/test/resources");
                   PostgresClient.getInstance(vertx).
-                    importFile(resourcesDirectory.getAbsolutePath()+"/import.txt", "test.po_line");
+                    importFile(resourcesDirectory.getAbsolutePath()+"/import.txt", "po_line");
                   async.countDown();
                   System.out.println("invoices table created");
                 }

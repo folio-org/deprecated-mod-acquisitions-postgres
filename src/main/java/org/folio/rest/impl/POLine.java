@@ -29,8 +29,8 @@ import org.folio.rest.tools.utils.OutStream;
  */
 public class POLine implements POLinesResource {
 
-  public static final String TABLE_NAME_POLINE = "test.po_line";
-  public static final String TABLE_NAME_FUNDS  = "test.funds";
+  public static final String TABLE_NAME_POLINE = "po_line";
+  public static final String TABLE_NAME_FUNDS  = "funds";
 
   public static final String JSONB_FIELD       = "jsonb";
 

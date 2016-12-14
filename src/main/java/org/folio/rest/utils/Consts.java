@@ -2,7 +2,7 @@ package org.folio.rest.utils;
 
 public class Consts {
 
-  public static final String FUNDS_COLLECTION           = "test.funds";
+  public static final String FUNDS_COLLECTION           = "funds";
   public static final String INVOICE_COLLECTION         = "invoice";
   public static final String INVOICE_LINE_COLLECTION    = "invoice_line";
 
