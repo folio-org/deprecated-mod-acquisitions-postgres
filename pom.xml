@@ -246,13 +246,15 @@
         api console on IE -->
       <plugin>
         <artifactId>maven-antrun-plugin</artifactId>
+        <version>1.8</version>
         <executions>
           <execution>
             <phase>prepare-package</phase>
             <configuration>
               <tasks>
                 <replace token="baseUri: http://github.com/org/folio/lsp-apis"
-                  value="baseUri: http://localhost:${http.port}/apis" dir="${basedir}/target/classes/apidocs/raml/acquisitions">
+                  value="baseUri: http://localhost:${http.port}/apis"
+                  dir="${basedir}/target/classes/apidocs/raml/acquisitions">
                   <include name="**/*.raml" />
                 </replace>
                 <replace token="protocols: [ HTTPS ]" value="protocols: [ HTTP ]"
