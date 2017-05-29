@@ -7,7 +7,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "$ref" : "fund"
+        "$ref" : "fund.schema"
       }
     },
     "total_records": {

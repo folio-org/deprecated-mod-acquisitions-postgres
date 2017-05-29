@@ -7,7 +7,7 @@
       "type": "array",
       "items": {
         "type": "object",
-        "$ref" : "invoice_line"
+        "$ref" : "invoice_line.schema"
       }
     },
     "total_records": {
