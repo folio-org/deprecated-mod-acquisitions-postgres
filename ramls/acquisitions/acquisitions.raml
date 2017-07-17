@@ -21,16 +21,16 @@ schemas:
   - vendors: !include ../_schemas/vendors.schema
 
 traits:
-  - secured: !include ../../raml-util/traits/auth.raml
-  - orderable: !include ../../raml-util/traits/orderable.raml
-  - pageable:  !include ../../raml-util/traits/pageable.raml
-  - searchable: !include ../../raml-util/traits/searchable.raml
-  - language: !include ../../raml-util/traits/language.raml
+  - secured: !include ../raml-util/traits/auth.raml
+  - orderable: !include ../raml-util/traits/orderable.raml
+  - pageable:  !include ../raml-util/traits/pageable.raml
+  - searchable: !include ../raml-util/traits/searchable.raml
+  - language: !include ../raml-util/traits/language.raml
 
 resourceTypes:
-  - collection: !include ../../raml-util/rtypes/collection.raml
-  - collection-item: !include ../../raml-util/rtypes/item-collection.raml
-  - get-only: !include ../../raml-util/rtypes/get-only.raml
+  - collection: !include ../raml-util/rtypes/collection.raml
+  - collection-item: !include ../raml-util/rtypes/item-collection.raml
+  - get-only: !include ../raml-util/rtypes/get-only.raml
 
 /funds:
   displayName: Funds
